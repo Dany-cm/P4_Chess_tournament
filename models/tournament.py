@@ -3,16 +3,17 @@ from dataclasses import dataclass
 
 @dataclass
 class Tournament():
-        name: str
-        location: str
-        start_date: str
-        end_date: str
-        player_list: list
-        round_list: list
-        control_time: int
-        description: str
-        id: int
-        number_of_round: int = 4
+    name: str
+    location: str
+    start_date: str
+    end_date: str
+    player_list: list
+    round_list: list
+    control_time: int
+    description: str
+    id: int
+    number_of_round: int = 4
+
 
 def serialized_tournament(tournament):
     return {

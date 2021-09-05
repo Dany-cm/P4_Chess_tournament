@@ -1,8 +1,5 @@
-from views.menu_views import MenuViews
-
-
 class menu_controller():
-    
+
     def __init__(self, view):
         self.view = view
 
@@ -20,7 +17,6 @@ class menu_controller():
 
     def create_tournament(self):
         self.view.create_tournament()
-        
 
     def run_application(self):
         self.view.welcome()
