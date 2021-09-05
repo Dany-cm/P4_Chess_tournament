@@ -43,7 +43,7 @@ def load_players():
     for serialized_player in players_table.all():
         playerlist.append(deserialize_player(serialized_player))
 
-def validate_new_player(lastname:str,firstname:str,dob:str,sex:str):
+def validate_new_player(lastname:str, firstname:str, dob:str, sex:str, rank:int):
     format = "%Y/%m/%d"
     try:
         datetime.datetime.strptime(dob, format)
@@ -58,6 +58,9 @@ def validate_new_player(lastname:str,firstname:str,dob:str,sex:str):
         return False
 
     if sex != 'M' and sex != 'F':
+        return False
+    
+    if not rank.isdigit() or int(rank) < 1:
         return False
 
     return True
