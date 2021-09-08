@@ -16,6 +16,9 @@ class Tournament():
 
 
 def serialized_tournament(tournament):
+    '''
+    Return serialized_tournament information
+    '''
     return {
         'name': tournament.name,
         'location': tournament.location,
@@ -28,3 +31,13 @@ def serialized_tournament(tournament):
         'id': tournament.id,
         'number_of_round': tournament.number_of_round,
     }
+
+
+def sorted_player_rank(self):
+    ''' Sort ranks by ascending order '''
+    self.player = sorted(self.player, key=lambda player: player.rank)
+
+
+def create_player_pairs(round):
+    if round == 0:
+        sorted_player_rank() #todo
