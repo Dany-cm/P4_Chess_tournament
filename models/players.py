@@ -41,14 +41,14 @@ class Player(object):
 
     def save_player(self, player):
         ''' Save player in the database '''
-        db = TinyDB('db.json')
+        db = TinyDB('players.json')
         players_table = db.table('players')
         players_table.insert(self.serialize_player(player))
 
     @staticmethod
     def load_players():
         ''' Load players from datbase '''
-        db = TinyDB('db.json')
+        db = TinyDB('players.json')
         players_table = db.table('players')
         for serialized_player in players_table.all():
             Player.playerlist.append(Player.deserialize_player(serialized_player))

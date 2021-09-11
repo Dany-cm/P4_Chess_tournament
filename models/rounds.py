@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Rounds():
+class Round():
     round_name: str
     match_list: list
     player: str

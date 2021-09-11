@@ -2,7 +2,7 @@ from models.players import Player
 from views.player_view import PlayerView
 
 
-class player_controller():
+class PlayerController():
 
     def __init__(self):
         self.view = PlayerView()

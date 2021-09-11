@@ -1,13 +1,13 @@
 from models.players import Player
-from controllers.player_controller import player_controller
+from controllers.player_controller import PlayerController
 from views.menu_views import MenuViews
 
 
-class menu_controller():
+class MenuController():
 
     def __init__(self):
         self.view = MenuViews()
-        self.player_controller = player_controller()
+        self.player_controller = PlayerController()
         Player.load_players()
 
     def first_menu(self):
@@ -21,8 +21,6 @@ class menu_controller():
         else:
             self.first_menu()
 
-    def create_tournament(self):
-        self.view.create_tournament()
 
     def run_application(self):
         self.view.welcome()
