@@ -21,7 +21,6 @@ class MenuController():
         else:
             self.first_menu()
 
-
     def run_application(self):
         self.view.welcome()
         self.first_menu()

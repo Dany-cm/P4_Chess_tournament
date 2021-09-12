@@ -21,7 +21,7 @@ class PlayerController():
 
         self.model = Player(lastname=lastname, firstname=firstname, dob=dob, sex=sex,  id=id, rank=rank)
 
-        if  self.model.create_new_player(lastname, firstname, dob, sex, rank):
+        if self.model.create_new_player(lastname, firstname, dob, sex, rank):
             self.view.display(f'{lastname} {firstname} has been created.')
         else:
             self.view.display('Invalid data. try again')

@@ -7,8 +7,8 @@ class Test(object):
     @staticmethod
     def test():
 
-        player = Player('C','Dany','10/10/1000','M',1,4)
-        player2 = Player('P','Kevin','10/10/1000','M',2,2)
+        player = Player('C', 'Dany', '10/10/1000', 'M', 1, 4)
+        player2 = Player('P', 'Kevin', '10/10/1000', 'M', 2, 2)
 
         match = Match(player, player2)
         print(f'TEST : {match}')

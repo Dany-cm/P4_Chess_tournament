@@ -16,7 +16,6 @@ class Tournament(object):
     id: int
     number_of_round: int = 4
 
-
     def serialize_tournament(self, tournament):
         '''
         Return serialized_tournament information
@@ -34,7 +33,6 @@ class Tournament(object):
             'number_of_round': tournament.number_of_round,
         }
 
-    
     @staticmethod
     def deserialize_tournament(serialize_tournament):
         ''' Deserialize player information '''
@@ -48,9 +46,10 @@ class Tournament(object):
         description = serialize_tournament['description']
         id = serialize_tournament['id']
         number_of_round = serialize_tournament['number_of_round']
-        return Tournament(name=name, location=location, start_date=start_date, end_date=end_date, player_list=player_list, round_list=round_list, control_time=control_time, description=description, id=id, number_of_round=number_of_round)
+        return Tournament(name=name, location=location, start_date=start_date, end_date=end_date,
+                          player_list=player_list, round_list=round_list, control_time=control_time,
+                          description=description, id=id, number_of_round=number_of_round)
 
-    
     def save_tournament(self, tournament):
         ''' Save tournament in the database '''
         db = TinyDB('tournament.json')
@@ -65,11 +64,9 @@ class Tournament(object):
         for serialized_tournament in tournament_table.all():
             Tournament.round_list.append(Tournament.deserialize_tournament(serialized_tournament))
 
-
     def sorted_player_rank(self):
         ''' Sort ranks by ascending order '''
         self.player_list = sorted(self.player_list, key=lambda player: player.rank)
-
 
     def create_player_pairs(self):
         """ if round == 0:

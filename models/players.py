@@ -3,7 +3,6 @@ from tinydb import TinyDB
 import datetime
 
 
-
 @dataclass
 class Player(object):
     lastname: str
@@ -13,7 +12,6 @@ class Player(object):
     id: int
     rank: int
     playerlist = []
-
 
     def serialize_player(self, player):
         ''' Serialize player information '''
@@ -26,7 +24,6 @@ class Player(object):
             'rank': player.rank,
         }
 
-
     @staticmethod
     def deserialize_player(serialize_player):
         ''' Deserialize player information '''
@@ -37,7 +34,6 @@ class Player(object):
         id = serialize_player['id']
         rank = serialize_player['rank']
         return Player(lastname=lastname, firstname=firstname, dob=dob, sex=sex, id=id, rank=rank)
-
 
     def save_player(self, player):
         ''' Save player in the database '''
@@ -52,7 +48,6 @@ class Player(object):
         players_table = db.table('players')
         for serialized_player in players_table.all():
             Player.playerlist.append(Player.deserialize_player(serialized_player))
-
 
     def validate_new_player(self, lastname: str, firstname: str, dob: str, sex: str, rank: int):
         ''' Sanity check to make sure players input are correct, return true if criteria are met '''
@@ -75,7 +70,6 @@ class Player(object):
             return False
 
         return True
-
 
     def create_new_player(self, lastname: str, firstname: str, dob: str, sex: str, rank: int):
         ''' Create a new player and save in the db '''

@@ -1,6 +1,7 @@
 from models.match import Match
 from views.match_view import MatchView
 
+
 class MatchController(object):
 
     def __init__(self):
@@ -15,5 +16,3 @@ class MatchController(object):
         else:
             self.view.display('Invalid choice')
             self.ask_match_result(match)
-
-
