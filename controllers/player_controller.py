@@ -8,6 +8,7 @@ class PlayerController():
         self.view = PlayerView()
 
     def create_new_player(self):
+        ''' Ask user to fill out information and save it '''
         self.view.ask_information('Last name')
         lastname = input()
         self.view.ask_information('First name')

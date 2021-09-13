@@ -74,7 +74,7 @@ class Player(object):
     def create_new_player(self, lastname: str, firstname: str, dob: str, sex: str, rank: int):
         ''' Create a new player and save in the db '''
         if self.validate_new_player(lastname, firstname, dob, sex, rank):
-            id = len(Player.playerlist) + 1
+            id = self.id(Player.playerlist)
             new_player = Player(lastname, firstname, dob, sex, id, rank)
             Player.playerlist.append(new_player)
             self.save_player(new_player)

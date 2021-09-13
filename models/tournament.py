@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from models.players import Player
 from tinydb import TinyDB
 from datetime import datetime
 
@@ -11,15 +12,14 @@ class Tournament(object):
     end_date: datetime
     player_list: list
     round_list: list
+    tournamentlist = []
     control_time: int
     description: str
     id: int
     number_of_round: int = 4
 
     def serialize_tournament(self, tournament):
-        '''
-        Return serialized_tournament information
-        '''
+        ''' Return serialized_tournament information '''
         return {
             'name': tournament.name,
             'location': tournament.location,
@@ -58,21 +58,24 @@ class Tournament(object):
 
     @staticmethod
     def load_tournament():
-        ''' Load tournament_table from datbase '''
+        ''' Load tournament_table from database '''
         db = TinyDB('tournament.json')
         tournament_table = db.table('tournament')
         for serialized_tournament in tournament_table.all():
-            Tournament.round_list.append(Tournament.deserialize_tournament(serialized_tournament))
+            Tournament.tournamentlist.append(Tournament.deserialize_tournament(serialized_tournament))
 
     def sorted_player_rank(self):
         ''' Sort ranks by ascending order '''
-        self.player_list = sorted(self.player_list, key=lambda player: player.rank)
+        self.player_list = sorted(self.player_list, key=Player.rank)
+
 
     def create_player_pairs(self):
         """ if round == 0:
-            self.player_list = sorted(self.player_list, key=lambda player: player.rank)
+            self.player_list = sorted_player_rank()
             length = len(self.player_list)
             middle_index = length // 2
             sup_half = self.player_list[:middle_index]
-            inf_half = self.player_list[middle_index:] """
+            inf_half = self.player_list[middle_index:]
+            for i in range(middle_index):
+                # best player from sup is matched with best from inf, repeat until done """
         pass

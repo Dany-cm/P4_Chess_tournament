@@ -8,7 +8,7 @@ class MenuViews():
 
     def main_menu(self):
         print('Que voulez-vous faire?')
-        print('1: Créer un tournois')
+        print('1: Créer un tournoi')
         print('2: Créer un joueur')
         print('3: menu 1')
         print('4: menu 1')
