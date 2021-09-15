@@ -65,26 +65,22 @@ class Tournament(object):
             Tournament.tournamentlist.append(Tournament.deserialize_tournament(serialized_tournament))
 
     def validate_new_tournament(self, name: str, location: str, start_date: datetime, end_date: datetime,
-                         player_list: list, round_list: list, control_time: str,
-                          description: str, id: int, number_of_round: int):
+                        player_list: list, round_list: list, control_time: str,
+                        description: str, id: int, number_of_round: int):
         pass
 
 
-    def sorted_player_rank(self):
-        ''' Sort ranks by ascending order '''
-        self.player_list = sorted(self.player_list, key=Player.rank)
+    def get_player_score(self, player: Player):
+        return sum(x.get_player_score(player) for x in self.round_list)
 
-    
+
     def sorted_player_score(self):
-        ''' Sort score by ascending order '''
-        #TODO: this
-    pass
+        ''' Sort score by descending order '''
+        self.player_list.sort(key=lambda player: (self.get_player_score(player), player.rank), reverse=True)
 
 
     def create_player_pairs(self):
         """ if round == 0:
-            self.player_list = self.sorted_player_rank()
-
             length = len(self.player_list)
             middle_index = length // 2
             sup_half = self.player_list[:middle_index]
@@ -92,4 +88,4 @@ class Tournament(object):
             for player_index in range(0, middle_index):
                 self.round_list.append(middle_index[player_index])
         else:
-             """
+              """

@@ -5,7 +5,7 @@ from models.match import Match, PlayerNotFound
 from models.players import Player
 
 
-@dataclass()
+@dataclass
 class Round():
     round_name: str
     match_list: list

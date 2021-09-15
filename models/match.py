@@ -5,7 +5,7 @@ class PlayerNotFound(Exception):
     def __init__(self, player):
         super().__init__(f'{player} not found')
 
-@dataclass()
+@dataclass
 class Match(object):
     match: tuple[list, list]
 
