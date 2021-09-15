@@ -20,8 +20,8 @@ class MatchController(object):
                 match.match[0][1] = 0
                 match.match[1][1] = 1
             elif choice == '3':
-                match.match[0][1] = 0,5
-                match.match[1][1] = 0,5
+                match.match[0][1] = 0.5
+                match.match[1][1] = 0.5
             self.view.display('Match result updated successfully')
         else:
             self.view.display('Invalid choice')

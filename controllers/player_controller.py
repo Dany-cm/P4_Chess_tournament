@@ -9,21 +9,17 @@ class PlayerController():
 
     def create_new_player(self):
         ''' Ask user to fill out information and save it '''
-        self.view.ask_information('Last name')
-        lastname = input()
-        self.view.ask_information('First name')
-        firstname = input()
-        self.view.ask_information('Birth date (DD/MM/YYYY)')
-        dob = input()
-        self.view.ask_information('Sex (M/F)')
-        sex = input()
-        self.view.ask_information('Rank')
-        rank = input()
+        questions = ['Last name', 'First name', 'Birth date (DD/MM/YYYY)', 'Sex (M/F)', 'Rank']
+        results = []
+        for question in questions:
+            self.view.ask_information(question)
+            result = input()
+            results.append(result)
 
-        self.model = Player(lastname=lastname, firstname=firstname, dob=dob, sex=sex,  id=id, rank=rank)
+        self.model = Player(results[0], results[1], results[2], results[3], results[4])
 
-        if self.model.create_new_player(lastname, firstname, dob, sex, rank):
-            self.view.display(f'{lastname} {firstname} has been created.')
+        if self.model.create_new_player(results[0], results[1], results[2], results[3], results[4]):
+            self.view.display(f'{results[0]} {results[1]} has been created.')
         else:
             self.view.display('Invalid data. try again')
             self.create_new_player()

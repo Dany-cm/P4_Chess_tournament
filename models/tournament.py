@@ -13,7 +13,7 @@ class Tournament(object):
     player_list: list
     round_list: list
     tournamentlist = []
-    control_time: int
+    control_time: str
     description: str
     id: int
     number_of_round: int = 4
@@ -64,18 +64,32 @@ class Tournament(object):
         for serialized_tournament in tournament_table.all():
             Tournament.tournamentlist.append(Tournament.deserialize_tournament(serialized_tournament))
 
+    def validate_new_tournament(self, name: str, location: str, start_date: datetime, end_date: datetime,
+                         player_list: list, round_list: list, control_time: str,
+                          description: str, id: int, number_of_round: int):
+        pass
+
+
     def sorted_player_rank(self):
         ''' Sort ranks by ascending order '''
         self.player_list = sorted(self.player_list, key=Player.rank)
 
+    
+    def sorted_player_score(self):
+        ''' Sort score by ascending order '''
+        #TODO: this
+    pass
+
 
     def create_player_pairs(self):
         """ if round == 0:
-            self.player_list = sorted_player_rank()
+            self.player_list = self.sorted_player_rank()
+
             length = len(self.player_list)
             middle_index = length // 2
             sup_half = self.player_list[:middle_index]
             inf_half = self.player_list[middle_index:]
-            for i in range(middle_index):
-                # best player from sup is matched with best from inf, repeat until done """
-        pass
+            for player_index in range(0, middle_index):
+                self.round_list.append(middle_index[player_index])
+        else:
+             """

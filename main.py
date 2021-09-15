@@ -1,11 +1,11 @@
 from controllers.menu_controller import MenuController
-# from test import Test
+from test import Test
 
 
 def main():
-    MenuController().run_application()
+    #MenuController().run_application()
 
-    # Test.test()
+    Test.test()
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from tinydb import TinyDB
-import datetime
+import datetime, uuid
 
 
 @dataclass
@@ -9,9 +9,16 @@ class Player(object):
     firstname: str
     dob: str
     sex: str
-    id: int
     rank: int
+    id: int = uuid.uuid1().urn.replace("urn:uuid:", "")
     playerlist = []
+
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __str__(self):
+        return f'{self.lastname} {self.firstname}'
 
     def serialize_player(self, player):
         ''' Serialize player information '''
@@ -74,8 +81,7 @@ class Player(object):
     def create_new_player(self, lastname: str, firstname: str, dob: str, sex: str, rank: int):
         ''' Create a new player and save in the db '''
         if self.validate_new_player(lastname, firstname, dob, sex, rank):
-            id = self.id(Player.playerlist)
-            new_player = Player(lastname, firstname, dob, sex, id, rank)
+            new_player = Player(lastname, firstname, dob, sex, rank)
             Player.playerlist.append(new_player)
             self.save_player(new_player)
             return True
