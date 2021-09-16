@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from tinydb import TinyDB
-import datetime, uuid
+import datetime
+import uuid
 
 
 @dataclass
@@ -12,7 +13,6 @@ class Player(object):
     rank: int
     id: int = uuid.uuid1().urn.replace("urn:uuid:", "")
     playerlist = []
-
 
     def __eq__(self, other):
         return self.id == other.id

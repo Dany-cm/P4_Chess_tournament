@@ -65,19 +65,16 @@ class Tournament(object):
             Tournament.tournamentlist.append(Tournament.deserialize_tournament(serialized_tournament))
 
     def validate_new_tournament(self, name: str, location: str, start_date: datetime, end_date: datetime,
-                        player_list: list, round_list: list, control_time: str,
-                        description: str, id: int, number_of_round: int):
+                                player_list: list, round_list: list, control_time: str,
+                                description: str, id: int, number_of_round: int):
         pass
-
 
     def get_player_score(self, player: Player):
         return sum(x.get_player_score(player) for x in self.round_list)
 
-
     def sorted_player_score(self):
         ''' Sort score by descending order '''
         self.player_list.sort(key=lambda player: (self.get_player_score(player), player.rank), reverse=True)
-
 
     def create_player_pairs(self):
         """ if round == 0:
