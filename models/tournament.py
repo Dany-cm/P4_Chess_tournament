@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from models.players import Player
 from models.rounds import Round
 from models.match import Match
@@ -16,19 +16,20 @@ class Tournament(object):
     description: str
     number_of_round: int = 4
     end_date: datetime = None
-    player_list: list = None
+    player_list: list = field(default_factory = lambda: [])
     round_list: list = None
     id: int = uuid.uuid1().urn.replace("urn:uuid:", "")
     tournamentlist = []
 
-    def serialize_tournament(self, tournament):
+    @staticmethod
+    def serialize_tournament(tournament):
         ''' Return serialized_tournament information '''
         return {
             'name': tournament.name,
             'location': tournament.location,
             'start_date': tournament.start_date,
             'end_date': tournament.end_date,
-            'player_list': tournament.player_list,
+            'player_list': list(player.id for player in tournament.player_list),
             'round_list': tournament.round_list,
             'control_time': tournament.control_time,
             'description': tournament.description,
@@ -43,7 +44,9 @@ class Tournament(object):
         location = serialize_tournament['location']
         start_date = serialize_tournament['start_date']
         end_date = serialize_tournament['end_date']
-        player_list = serialize_tournament['player_list']
+        player_list = []
+        for serializedPlayer in serialize_tournament['player_list']:
+            player_list.append(list(filter(lambda player: player.id == serializedPlayer, Player.playerlist))[0])
         round_list = serialize_tournament['round_list']
         control_time = serialize_tournament['control_time']
         description = serialize_tournament['description']
@@ -52,16 +55,19 @@ class Tournament(object):
         return Tournament(name=name, location=location, start_date=start_date, end_date=end_date,
                           player_list=player_list, round_list=round_list, control_time=control_time,
                           description=description, id=id, number_of_round=number_of_round)
-
-    def save_tournament(self, tournament):
+    @staticmethod
+    def save_tournaments():
         ''' Save tournament in the database '''
         db = TinyDB('tournament.json')
         tournament_table = db.table('tournament')
-        tournament_table.insert(self.serialize_tournament(tournament))
+        tournament_table.truncate()
+        for tournament in Tournament.tournamentlist:
+            tournament_table.insert(Tournament.serialize_tournament(tournament))
 
     @staticmethod
-    def load_tournament():
+    def load_tournaments():
         ''' Load tournament_table from database '''
+        Tournament.tournamentlist = []
         db = TinyDB('tournament.json')
         tournament_table = db.table('tournament')
         for serialized_tournament in tournament_table.all():
@@ -90,7 +96,7 @@ class Tournament(object):
 
     def validate_new_tournament(self, name: str, location: str, start_date: datetime,
                                 control_time: str, description: str, number_of_round: int):
-        ''' Sanity check to make sure input are correct, return true if is criteria are met'''
+        ''' Sanity check to make sure input are correct, return true if criteria are met'''
         if not all(name_check.isalpha() or name_check.isspace() for name_check in name):
             return False
 
@@ -120,6 +126,6 @@ class Tournament(object):
         if self.validate_new_tournament(name, location, start_date, control_time, description, number_of_round):
             new_tournament = Tournament(name, location, start_date, control_time, description, number_of_round)
             Tournament.tournamentlist.append(new_tournament)
-            self.save_tournament(new_tournament)
+            Tournament.save_tournaments()
             return True
         return False

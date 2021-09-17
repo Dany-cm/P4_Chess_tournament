@@ -20,7 +20,8 @@ class Player(object):
     def __str__(self):
         return f'{self.lastname} {self.firstname}'
 
-    def serialize_player(self, player):
+    @staticmethod
+    def serialize_player(player):
         ''' Serialize player information '''
         return {
             'lastname': player.lastname,
@@ -42,15 +43,19 @@ class Player(object):
         rank = serialize_player['rank']
         return Player(lastname=lastname, firstname=firstname, dob=dob, sex=sex, id=id, rank=rank)
 
-    def save_player(self, player):
+    @staticmethod
+    def save_player():
         ''' Save player in the database '''
         db = TinyDB('players.json')
         players_table = db.table('players')
-        players_table.insert(self.serialize_player(player))
+        players_table.truncate()
+        for player in Player.playerlist:
+            players_table.insert(Player.serialize_player(player))
 
     @staticmethod
     def load_players():
         ''' Load players from datbase '''
+        Player.playerlist = []
         db = TinyDB('players.json')
         players_table = db.table('players')
         for serialized_player in players_table.all():
@@ -83,6 +88,6 @@ class Player(object):
         if self.validate_new_player(lastname, firstname, dob, sex, rank):
             new_player = Player(lastname, firstname, dob, sex, rank)
             Player.playerlist.append(new_player)
-            self.save_player(new_player)
+            Player.save_player()
             return True
         return False
