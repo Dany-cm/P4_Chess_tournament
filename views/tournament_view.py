@@ -8,7 +8,7 @@ class TournamentView():
 
     def display(self, message):
         print(message)
-    
+
     def display_tournaments_name(self, tournaments_to_display: list[Tournament]):
         ''' '''
         print('Choose a tournament')

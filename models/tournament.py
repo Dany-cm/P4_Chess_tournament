@@ -16,7 +16,7 @@ class Tournament(object):
     description: str
     number_of_round: int = 4
     end_date: datetime = None
-    player_list: list = field(default_factory = lambda: [])
+    player_list: list = field(default_factory=lambda: [])
     round_list: list = None
     id: int = uuid.uuid1().urn.replace("urn:uuid:", "")
     tournamentlist = []
@@ -46,6 +46,8 @@ class Tournament(object):
         end_date = serialize_tournament['end_date']
         player_list = []
         for serializedPlayer in serialize_tournament['player_list']:
+            if len(Player.playerlist) <= 0:
+                return False
             player_list.append(list(filter(lambda player: player.id == serializedPlayer, Player.playerlist))[0])
         round_list = serialize_tournament['round_list']
         control_time = serialize_tournament['control_time']
@@ -55,6 +57,7 @@ class Tournament(object):
         return Tournament(name=name, location=location, start_date=start_date, end_date=end_date,
                           player_list=player_list, round_list=round_list, control_time=control_time,
                           description=description, id=id, number_of_round=number_of_round)
+
     @staticmethod
     def save_tournaments():
         ''' Save tournament in the database '''

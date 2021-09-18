@@ -16,7 +16,7 @@ class MenuViews():
         print('2: Add 8 players to a tournament')
         print('3: Play a tournament round')
         print('4: Back to previous menu')
-    
+
     def player_menu(self):
         print('What do you want to do?')
         print('1: Create a new player')

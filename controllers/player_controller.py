@@ -23,3 +23,31 @@ class PlayerController():
         else:
             self.view.display('Invalid data. try again')
             self.create_new_player()
+
+    def modify_player_rank(self):
+        ''' Modify the rank of a selected player'''
+        if len(Player.playerlist) <= 0:
+            self.view.display('You need at least 1 player in the application to do this')
+            return False
+
+        self.view.display_players_name(Player.playerlist)
+        self.view.display('Select the player number to modify their rank')
+
+        player_list_index = [i for i, x in enumerate(Player.playerlist)]
+        selected_player = input().isnumeric()
+
+        if not selected_player and selected_player <= 0:
+            self.view.display('Only numbers are allowed and it must greater than 0')
+
+        elif selected_player > 0 and selected_player <= len(player_list_index):
+            sanitized_input = input('Enter the new rank for the player ')
+
+            try:
+                if int(sanitized_input) > 0:
+                    new_rank = sanitized_input
+                    Player.rank = new_rank
+                    Player.update_player_rank(selected_player)
+                else:
+                    print('Number must be greater than 0')
+            except ValueError:
+                print("Please only enter a number superior to 0")

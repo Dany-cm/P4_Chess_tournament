@@ -27,7 +27,7 @@ class MenuController():
             exit()
         else:
             self.main_menu()
-    
+
     def tournament_menu(self):
         ''' Main menu '''
         self.view.tournament_menu()
@@ -43,7 +43,7 @@ class MenuController():
             self.main_menu()
         else:
             self.tournament_menu()
-    
+
     def player_menu(self):
         ''' Main menu '''
         self.view.player_menu()
@@ -52,12 +52,12 @@ class MenuController():
         if choice == '1':
             self.player_controller.create_new_player()
         elif choice == '2':
-            print(' Edit player rank')
+            self.player_controller.modify_player_rank()
         elif choice == '3':
             self.main_menu()
         else:
             self.player_menu()
-    
+
     def report_menu(self):
         ''' Second menu '''
         self.view.reports_menu()

@@ -61,6 +61,12 @@ class Player(object):
         for serialized_player in players_table.all():
             Player.playerlist.append(Player.deserialize_player(serialized_player))
 
+    def update_player_rank(data):
+        ''' Update a player rank'''
+        db = TinyDB('players.json')
+        players_table = db.table('players')
+        players_table.update({'rank': Player.rank}, doc_ids=[data])
+
     def validate_new_player(self, lastname: str, firstname: str, dob: str, sex: str, rank: int):
         ''' Sanity check to make sure players input are correct, return true if criteria are met '''
         format = '%d/%m/%Y'
