@@ -50,6 +50,5 @@ class PlayerController():
                     self.view.display(f'Rank has been updated to {new_rank}')
                 else:
                     self.view.display('Number must be greater than 0')
-                    print('Number must be greater than 0')
             except ValueError:
                 self.view.display('Please only enter a number superior to 0')
