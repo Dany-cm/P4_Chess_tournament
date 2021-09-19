@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from tinydb import TinyDB, Query
+from tinydb import TinyDB
 import datetime
 import uuid
 

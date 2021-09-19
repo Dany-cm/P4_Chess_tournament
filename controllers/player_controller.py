@@ -36,19 +36,20 @@ class PlayerController():
         player_list_index = [i for i, x in enumerate(Player.playerlist)]
         selected_player = input()
 
-        if any(selected_player.count(number) >= 1 for number in selected_player):
-            if any(not (number.isdigit() and int(number) >= 1 and int(number) <= len(Player.playerlist))
-                        for number in selected_player):
-
-                self.view.display('Only numbers are allowed and it must greater than 0')
-            elif int(selected_player) > 0 and int(selected_player) <= len(player_list_index):
-                sanitized_input = input('Enter the new rank for the player ')
-                try:
-                    if int(sanitized_input) > 0:
-                        new_rank = sanitized_input
-                        Player.rank = int(new_rank)
-                        Player.update_player_rank(int(selected_player))
-                    else:
-                        print('Number must be greater than 0')
-                except ValueError:
-                    print("Please only enter a number superior to 0")
+        if not(selected_player.isdigit() and int(selected_player) >= 1):
+            self.view.display('Only numbers are allowed and it must greater than 0')
+        elif not int(selected_player) <= len(player_list_index):
+            self.view.display('Player does not exist')
+        elif int(selected_player) > 0 and int(selected_player) <= len(player_list_index):
+            sanitized_input = input('Enter the new rank for the player ')
+            try:
+                if int(sanitized_input) > 0:
+                    new_rank = sanitized_input
+                    Player.rank = int(new_rank)
+                    Player.update_player_rank(int(selected_player))
+                    self.view.display(f'Rank has been updated to {new_rank}')
+                else:
+                    self.view.display('Number must be greater than 0')
+                    print('Number must be greater than 0')
+            except ValueError:
+                self.view.display('Please only enter a number superior to 0')
