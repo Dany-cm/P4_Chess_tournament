@@ -1,5 +1,6 @@
 from controllers.player_controller import PlayerController
 from controllers.tournament_controller import TournamentController
+from controllers.report_controller import ReportController
 from models.players import Player
 from models.tournament import Tournament
 from views.menu_views import MenuViews
@@ -11,6 +12,7 @@ class MenuController():
         self.view = MenuViews()
         self.player_controller = PlayerController()
         self.tournament_controller = TournamentController()
+        self.report_controller = ReportController()
 
     def main_menu(self):
         ''' Main menu '''
@@ -59,22 +61,38 @@ class MenuController():
             self.player_menu()
 
     def report_menu(self):
-        ''' Second menu '''
+        ''' Main menu '''
         self.view.reports_menu()
         choice = input()
 
         if choice == '1':
-            print('')
+            self.report_menu_seconds()
         elif choice == '2':
             print('')
         elif choice == '3':
             print('')
-        elif choice == '5':
+        elif choice == '4':
             print('')
         elif choice == '5':
             print('')
         elif choice == '6':
             self.report_menu()
+    
+    def report_menu_seconds(self):
+        ''' Main menu '''
+        self.view.report_menu_seconds()
+        choice = input()
+
+        if choice == '1':
+            self.report_controller.display_sorted_players_name()
+        elif choice == '2':
+            self.report_controller.display_sorted_player_ranks()
+        elif choice == '3':
+            print('')
+        elif choice == '4':
+            print('')
+        elif choice == '5':
+            self.report_menu_seconds()
 
     def run_application(self):
         ''' Welcome message when starting the app and redirect to first_menu'''

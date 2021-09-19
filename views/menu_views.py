@@ -31,3 +31,10 @@ class MenuViews():
         print('4: Show all rounds from a tournament')
         print('5: Show all matches from a tournament')
         print('6: Back to the previous menu')
+    
+    def report_menu_seconds(self):
+        print('What do you want to do?')
+        print('1: Show all players by alphabetic order')
+        print('2: Show all players by ranking')
+        print('3: Show all players in tournaments by alphabetic order')
+        print('4: Show all players in tournaments by ranking')

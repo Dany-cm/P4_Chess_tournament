@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from tinydb import TinyDB
+from tinydb import TinyDB, Query
 import datetime
 import uuid
 
@@ -11,7 +11,7 @@ class Player(object):
     dob: str
     sex: str
     rank: int
-    id: int = uuid.uuid1().urn.replace("urn:uuid:", "")
+    id: int = uuid.uuid4().urn.replace("urn:uuid:", "")
     playerlist = []
 
     def __eq__(self, other):
@@ -66,6 +66,14 @@ class Player(object):
         db = TinyDB('players.json')
         players_table = db.table('players')
         players_table.update({'rank': Player.rank}, doc_ids=[data])
+    
+    def sort_player_by_alphabetical_order(player):
+        player = sorted(player, key=lambda x: x.lastname)
+        return player
+    
+    def sort_player_by_ranking_order(player):
+        player = sorted(player, key=lambda x: x.rank)
+        return player
 
     def validate_new_player(self, lastname: str, firstname: str, dob: str, sex: str, rank: int):
         ''' Sanity check to make sure players input are correct, return true if criteria are met '''
@@ -84,7 +92,7 @@ class Player(object):
         if sex != 'M'.casefold() and sex != 'F'.casefold():
             return False
 
-        if not rank.isdigit() or int(rank) < 1:
+        if not int(rank) or int(rank) < 1:
             return False
 
         return True
