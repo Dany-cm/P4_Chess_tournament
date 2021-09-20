@@ -17,7 +17,7 @@ class Tournament(object):
     number_of_round: int = 4
     end_date: datetime = None
     player_list: list = field(default_factory=lambda: [])
-    round_list: list = None
+    round_list: list = field(default_factory=lambda: [])
     id: int = uuid.uuid1().urn.replace("urn:uuid:", "")
     tournamentlist = []
 
@@ -83,6 +83,13 @@ class Tournament(object):
     def sorted_player_score(self):
         ''' Sort player score and rank by descending order '''
         self.player_list.sort(key=lambda player: (self.get_player_score(player), player.rank), reverse=True)
+    
+    def sort_player_from_tournament_by_alphabetical_order(self):
+        return sorted(self.player_list, key=lambda player: player.lastname)
+    
+    def sort_player_from_tournament_by_rank_order(self):
+        return sorted(self.player_list, key=lambda player: player.rank)
+    
 
     def create_new_round(self):
         ''' Create a new round '''

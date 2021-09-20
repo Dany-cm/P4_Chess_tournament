@@ -30,6 +30,7 @@ class PlayerController():
             self.view.display('You need at least 1 player in the application to do this')
             return False
 
+        self.view.display('List of players')
         self.view.display_players_name(Player.playerlist)
         self.view.display('Select the player number to modify their rank')
 
@@ -40,14 +41,15 @@ class PlayerController():
             self.view.display('Only numbers are allowed and it must greater than 0')
         elif not int(selected_player) <= len(player_list_index):
             self.view.display('Player does not exist')
-        elif int(selected_player) > 0 and int(selected_player) <= len(player_list_index):
+        else:
+            player_to_modify: Player = Player.playerlist[int(selected_player) - 1]
             sanitized_input = input('Enter the new rank for the player ')
             try:
                 if int(sanitized_input) > 0:
                     new_rank = sanitized_input
-                    Player.rank = int(new_rank)
-                    Player.update_player_rank(int(selected_player))
-                    self.view.display(f'Rank has been updated to {new_rank}')
+                    player_to_modify.rank = int(new_rank)
+                    player_to_modify.update_player_rank()
+                    self.view.display(f'{player_to_modify} rank has been updated to {new_rank}')
                 else:
                     self.view.display('Number must be greater than 0')
             except ValueError:

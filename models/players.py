@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from tinydb import TinyDB
+from tinydb import TinyDB, Query
 import datetime
 import uuid
 
@@ -61,19 +61,19 @@ class Player(object):
         for serialized_player in players_table.all():
             Player.playerlist.append(Player.deserialize_player(serialized_player))
 
-    def update_player_rank(data):
+    def update_player_rank(self):
         ''' Update a player rank'''
         db = TinyDB('players.json')
         players_table = db.table('players')
-        players_table.update({'rank': Player.rank}, doc_ids=[data])
+        players_table.update({'rank': self.rank}, Query()['id'] == f'{self.id}')
     
-    def sort_player_by_alphabetical_order(player):
-        player = sorted(player, key=lambda x: x.lastname)
-        return player
-    
-    def sort_player_by_ranking_order(player):
-        player = sorted(player, key=lambda x: x.rank)
-        return player
+    @staticmethod
+    def sort_player_by_alphabetical_order():
+        return sorted(Player.playerlist, key=lambda x: x.lastname)
+
+    @staticmethod
+    def sort_player_by_ranking_order():
+        return sorted(Player.playerlist, key=lambda x: x.rank)
 
     def validate_new_player(self, lastname: str, firstname: str, dob: str, sex: str, rank: int):
         ''' Sanity check to make sure players input are correct, return true if criteria are met '''

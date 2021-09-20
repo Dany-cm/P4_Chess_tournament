@@ -66,9 +66,9 @@ class MenuController():
         choice = input()
 
         if choice == '1':
-            self.report_menu_seconds()
+            self.report_menu_second()
         elif choice == '2':
-            print('')
+            self.report_menu_third()
         elif choice == '3':
             print('')
         elif choice == '4':
@@ -78,9 +78,9 @@ class MenuController():
         elif choice == '6':
             self.report_menu()
     
-    def report_menu_seconds(self):
+    def report_menu_second(self):
         ''' Main menu '''
-        self.view.report_menu_seconds()
+        self.view.report_menu_second()
         choice = input()
 
         if choice == '1':
@@ -88,11 +88,19 @@ class MenuController():
         elif choice == '2':
             self.report_controller.display_sorted_player_ranks()
         elif choice == '3':
-            print('')
-        elif choice == '4':
-            print('')
-        elif choice == '5':
-            self.report_menu_seconds()
+            self.report_menu()
+    
+    def report_menu_third(self):
+        ''' Main menu '''
+        self.view.report_menu_third()
+        choice = input()
+
+        if choice == '1':
+            self.report_controller.display_sorted_player_from_tournament_by_alphabetical_order()
+        elif choice == '2':
+            self.report_controller.display_sorted_player_from_tournament_by_rank_order()
+        elif choice == '3':
+            self.report_menu()
 
     def run_application(self):
         ''' Welcome message when starting the app and redirect to first_menu'''
