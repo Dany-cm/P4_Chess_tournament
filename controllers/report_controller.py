@@ -19,7 +19,7 @@ class ReportController():
             player = Player.deserialize_player(player)
             players.append(player)
         return players
-    
+
     def display_sorted_players_name(self):
         player_by_name = Player.sort_player_by_alphabetical_order()
         self.view.display('List of players sorted by alphabetical order')
@@ -29,11 +29,10 @@ class ReportController():
         player_by_rank = Player.sort_player_by_ranking_order()
         self.view.display('List of players sorted by rank')
         self.view.display_players_rank(player_by_rank)
-    
+
     def select_tournament(self):
-        self.view.display('Select a tournament')
         self.view.display_tournaments_name(Tournament.tournamentlist)
-        
+
         correct = False
         while (not correct):
             selection = input()
@@ -49,34 +48,23 @@ class ReportController():
         player_by_name = tournament_to_display.sort_player_from_tournament_by_alphabetical_order()
         self.view.display('List of players sorted by name')
         self.view.display_players_name(player_by_name)
-    
+
     def display_sorted_player_from_tournament_by_rank_order(self):
         tournament_to_display: Tournament = self.select_tournament()
         player_by_rank = tournament_to_display.sort_player_from_tournament_by_rank_order()
         self.view.display('List of players sorted by rank')
         self.view.display_players_rank(player_by_rank)
 
-
-    def get_all_players_from_tournament(self):
-        db = TinyDB('tournament.json')
-        tournament_data = db.table('tournament')
-        tournament_database = tournament_data.all()
-        tournaments = list()
-
-        for tournament in tournament_database:
-            tournament = Tournament.deserialize_tournament(tournament)
-            tournaments.append(tournament)
-
-        return tournaments
-
     def get_all_tournament(self):
-        # TODO display all tournament
-        pass
+        self.view.display('List of tournaments')
+        self.view.display_tournaments_name(Tournament.tournamentlist)
 
     def get_all_rounds_from_tournament(self):
-        # TODO display all rounds from a tournament
-        pass
+        self.view.display('List of all rounds from a tournament')
+        tournament_to_display: Tournament = self.select_tournament()
+        self.view.display_tournament_rounds_name(tournament_to_display)
 
-    def get_all_match_from_tournament(self):
-        # TODO display all matches from a tournament
-        pass
+    def get_all_matchs_from_tournament(self):
+        self.view.display('List of all matchs from a tournament')
+        tournament_to_display: Tournament = self.select_tournament()
+        self.view.display_tournament_matchs_name(tournament_to_display)

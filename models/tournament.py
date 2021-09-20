@@ -19,6 +19,7 @@ class Tournament(object):
     player_list: list = field(default_factory=lambda: [])
     round_list: list = field(default_factory=lambda: [])
     id: int = uuid.uuid1().urn.replace("urn:uuid:", "")
+    is_tournament_finished: bool = False
     tournamentlist = []
 
     @staticmethod
@@ -30,7 +31,7 @@ class Tournament(object):
             'start_date': tournament.start_date,
             'end_date': tournament.end_date,
             'player_list': list(player.id for player in tournament.player_list),
-            'round_list': tournament.round_list,
+            'round_list': list(Round.serialize_round(round) for round in tournament.round_list),
             'control_time': tournament.control_time,
             'description': tournament.description,
             'id': tournament.id,
@@ -38,22 +39,24 @@ class Tournament(object):
         }
 
     @staticmethod
-    def deserialize_tournament(serialize_tournament):
+    def deserialize_tournament(serialized_tournament):
         ''' Deserialize player information '''
-        name = serialize_tournament['name']
-        location = serialize_tournament['location']
-        start_date = serialize_tournament['start_date']
-        end_date = serialize_tournament['end_date']
+        name = serialized_tournament['name']
+        location = serialized_tournament['location']
+        start_date = serialized_tournament['start_date']
+        end_date = serialized_tournament['end_date']
         player_list = []
-        for serializedPlayer in serialize_tournament['player_list']:
+        for serialized_player in serialized_tournament['player_list']:
             if len(Player.playerlist) <= 0:
-                return False
-            player_list.append(list(filter(lambda player: player.id == serializedPlayer, Player.playerlist))[0])
-        round_list = serialize_tournament['round_list']
-        control_time = serialize_tournament['control_time']
-        description = serialize_tournament['description']
-        id = serialize_tournament['id']
-        number_of_round = serialize_tournament['number_of_round']
+                raise Exception('An error has occurred while deserializing a tournament.')
+            player_list.append(list(filter(lambda player: player.id == serialized_player, Player.playerlist))[0])
+        round_list = []
+        for serialized_round in serialized_tournament['round_list']:
+            round_list.append(Round.deserialize_round(serialized_round))
+        control_time = serialized_tournament['control_time']
+        description = serialized_tournament['description']
+        id = serialized_tournament['id']
+        number_of_round = serialized_tournament['number_of_round']
         return Tournament(name=name, location=location, start_date=start_date, end_date=end_date,
                           player_list=player_list, round_list=round_list, control_time=control_time,
                           description=description, id=id, number_of_round=number_of_round)
@@ -83,17 +86,17 @@ class Tournament(object):
     def sorted_player_score(self):
         ''' Sort player score and rank by descending order '''
         self.player_list.sort(key=lambda player: (self.get_player_score(player), player.rank), reverse=True)
-    
+
     def sort_player_from_tournament_by_alphabetical_order(self):
         return sorted(self.player_list, key=lambda player: player.lastname)
-    
+
     def sort_player_from_tournament_by_rank_order(self):
         return sorted(self.player_list, key=lambda player: player.rank)
-    
 
     def create_new_round(self):
         ''' Create a new round '''
-        round = Round(f'Round{len(self.round_list) +1}', matchlist=[])
+        self.sorted_player_score()
+        round = Round(f'Round {len(self.round_list) +1}')
         length = len(self.player_list)
         middle_index = length // 2
         sup_half = self.player_list[:middle_index]

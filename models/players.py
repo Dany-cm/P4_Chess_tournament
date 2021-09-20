@@ -44,7 +44,7 @@ class Player(object):
         return Player(lastname=lastname, firstname=firstname, dob=dob, sex=sex, id=id, rank=rank)
 
     @staticmethod
-    def save_player():
+    def save_players():
         ''' Save player in the database '''
         db = TinyDB('players.json')
         players_table = db.table('players')
@@ -66,7 +66,7 @@ class Player(object):
         db = TinyDB('players.json')
         players_table = db.table('players')
         players_table.update({'rank': self.rank}, Query()['id'] == f'{self.id}')
-    
+
     @staticmethod
     def sort_player_by_alphabetical_order():
         return sorted(Player.playerlist, key=lambda x: x.lastname)
@@ -102,6 +102,6 @@ class Player(object):
         if self.validate_new_player(lastname, firstname, dob, sex, rank):
             new_player = Player(lastname, firstname, dob, sex, rank)
             Player.playerlist.append(new_player)
-            Player.save_player()
+            Player.save_players()
             return True
         return False

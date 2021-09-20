@@ -26,9 +26,10 @@ class MenuController():
         elif choice == '3':
             self.report_menu()
         elif choice == '4':
+            Tournament.save_tournaments()
+            Player.save_players()
             exit()
-        else:
-            self.main_menu()
+        self.main_menu()
 
     def tournament_menu(self):
         ''' Main menu '''
@@ -40,8 +41,10 @@ class MenuController():
         elif choice == '2':
             self.tournament_controller.add_players_to_tournament()
         elif choice == '3':
-            print('play a tournament todo')
+            self.tournament_controller.start_tournament()
         elif choice == '4':
+            self.tournament_controller.finish_in_progress_round()
+        elif choice == '5':
             self.main_menu()
         else:
             self.tournament_menu()
@@ -70,14 +73,14 @@ class MenuController():
         elif choice == '2':
             self.report_menu_third()
         elif choice == '3':
-            print('')
+            self.report_controller.get_all_tournament()
         elif choice == '4':
-            print('')
+            self.report_controller.get_all_rounds_from_tournament()
         elif choice == '5':
-            print('')
+            self.report_controller.get_all_matchs_from_tournament()
         elif choice == '6':
             self.report_menu()
-    
+
     def report_menu_second(self):
         ''' Main menu '''
         self.view.report_menu_second()
@@ -89,7 +92,7 @@ class MenuController():
             self.report_controller.display_sorted_player_ranks()
         elif choice == '3':
             self.report_menu()
-    
+
     def report_menu_third(self):
         ''' Main menu '''
         self.view.report_menu_third()
