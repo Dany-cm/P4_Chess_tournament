@@ -117,5 +117,22 @@ What do you want to do?
 5: Show all matches from a tournament
 6: Back to the previous menu
 ```
+
+## Flake8
+This application can generate a report using Flake8, Flake8 is the wrapper which verifies pep8, pyflakes and circular complexity.
+You can generate a report by simple typing :
+```
+flake8
+```
+A folder will be created called 'flake_reports' with an index.html, open it and you will see that this project is conform to the pep8 standard
+```
+flake8 violations
+Generated on 2021-09-21 12:16 with mccabe: 0.6.1, pycodestyle: 2.7.0, pyflakes: 2.3.1
+
+✓
+All good!
+No flake8 errors found in 19 files scanned.
+```
+
 ## License
 [Danycm1](https://choosealicense.com/licenses/mit/)
