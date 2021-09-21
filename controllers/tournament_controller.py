@@ -116,7 +116,7 @@ class TournamentController():
             for player in tournament_to_resume.player_list:
                 correct = False
                 while (not correct):
-                    sanitized_input = input(f'Enter the new rank for {player}:')
+                    sanitized_input = input(f'Enter the new rank for {player}: ')
                     try:
                         if int(sanitized_input) > 0:
                             new_rank = sanitized_input
