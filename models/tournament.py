@@ -130,7 +130,7 @@ class Tournament(object):
         if not description.isalpha():
             return False
 
-        if not number_of_round.isdigit() or int(number_of_round) < 1:
+        if not number_of_round or int(number_of_round) < 1:
             return False
 
         return True

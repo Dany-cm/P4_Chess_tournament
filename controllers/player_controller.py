@@ -1,5 +1,6 @@
 from models.players import Player
 from views.player_view import PlayerView
+import datetime
 
 
 class PlayerController():
@@ -7,13 +8,46 @@ class PlayerController():
     def __init__(self):
         self.view = PlayerView()
 
+    def check_last_name(self, lastname):
+        if not lastname.isalpha():
+            return False
+        return True
+
+    def check_first_name(self, firstname):
+        if not firstname.isalpha():
+            return False
+        return True
+
+    def check_birth_date(self, dob):
+        format = '%d/%m/%Y'
+        try:
+            datetime.datetime.strptime(dob, format)
+        except ValueError:
+            return False
+        return True
+
+    def check_sex(self, sex):
+        if sex != 'M'.casefold() and sex != 'F'.casefold():
+            return False
+        return True
+
+    def check_rank(self, rank):
+        if not int(rank) or int(rank) < 1:
+            return False
+        return True
+
     def create_new_player(self):
         ''' Ask user to fill out information and save it '''
-        questions = ['Last name', 'First name', 'Birth date (DD/MM/YYYY)', 'Sex (M/F)', 'Rank']
+        questions = [('Last name', self.check_last_name), ('First name', self.check_first_name), ('Birth date (DD/MM/YYYY)', self.check_birth_date), ('Sex (M/F)', self.check_sex), ('Rank', self.check_rank)]
         results = []
         for question in questions:
-            self.view.ask_information(question)
-            result = input()
+            self.view.ask_information(question[0])
+            is_correct = False
+            while not is_correct:
+                result = input()
+                is_correct = question[1](result)
+                if not is_correct:
+                    self.view.display(f'{question[0]} is invalid, please try again')
             results.append(result)
 
         self.model = Player(results[0], results[1], results[2], results[3], results[4])

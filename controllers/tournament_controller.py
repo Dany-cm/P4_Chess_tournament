@@ -1,6 +1,7 @@
 from models.players import Player
 from models.tournament import Tournament
 from views.tournament_view import TournamentView
+import datetime
 
 
 class TournamentController():
@@ -8,14 +9,56 @@ class TournamentController():
     def __init__(self):
         self.view = TournamentView()
 
+    def check_name(self, name):
+        if not all(name_check.isalpha() or name_check.isspace() for name_check in name):
+            return False
+        return True
+
+    def check_location(self, location):
+        if not location.isalpha():
+            return False
+        return True
+
+    def check_date(self, start_date):
+        format = '%d/%m/%Y'
+        try:
+            datetime.strptime(start_date, format)
+        except ValueError:
+            return False
+        return True
+
+    def check_control_time(self, control_time):
+        if not control_time.isalpha():
+            return False
+        return True
+
+    def check_description(self, description):
+        if not description.isalpha():
+            return False
+        return True
+
+    def check_number_of_round(self, number_of_round):
+        if not number_of_round or int(number_of_round) < 1:
+            return False
+        return True
+
     def create_new_tournament(self):
-        ''' Ask user to fill out information and save it '''
-        questions = ['Name', 'Location name', 'Start date (DD/MM/YYYY)', 'Time control (Bullet, Blitz or Rapid)',
-                     'Description', 'Number of round (4 by default)']
+        ''' Ask user to fill out information and save it, 
+            questions is a list of tuples 
+            the first element is the name of the field 
+            the second element is the function to validate the input '''
+        questions = [('Name', self.check_name), ('Location name', self.check_location), ('Start date (DD/MM/YYYY)', self.check_date),
+                     ('Time control (Bullet, Blitz or Rapid)', self.check_control_time), ('Description', self.check_description),
+                     ('Number of round (4 by default)', self.check_number_of_round)]
         results = []
         for question in questions:
-            self.view.ask_information(question)
-            result = input()
+            self.view.ask_information(question[0])
+            is_correct = False
+            while not is_correct:
+                result = input()
+                is_correct = question[1](result)
+                if not is_correct:
+                    self.view.display(f'{question[0]} is invalid, please try again')
             results.append(result)
 
         self.model = Tournament(results[0], results[1], results[2], results[3], results[4], int(results[5]))
@@ -54,6 +97,8 @@ class TournamentController():
         is_input_correct = False
         while (not is_input_correct):
             is_input_correct = True
+            self.view.display('Select players to add to the tournament.')
+            self.view.display('You must seperate each entry  typing: 1,2,3,4,5,6,7,8 will select the first 8 players.')
             choice = input()
             selected_numbers = choice.split(',')
 
@@ -89,6 +134,8 @@ class TournamentController():
 
         tournament_to_start: Tournament = tournaments_with_players[int(selection) - 1]
         tournament_to_start.create_new_round()
+
+        self.view.display('Tournament has started')
 
         Tournament.save_tournaments()
 
