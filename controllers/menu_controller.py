@@ -79,7 +79,7 @@ class MenuController():
         elif choice == '5':
             self.report_controller.get_all_matchs_from_tournament()
         elif choice == '6':
-            self.report_menu()
+            self.main_menu()
 
     def report_menu_second(self):
         ''' Report second menu '''
