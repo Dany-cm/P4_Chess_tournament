@@ -12,4 +12,5 @@ class MatchView(object):
         print('3 - Draw')
 
     def display(self, message):
+        ''' Helper function to display a message '''
         print(message)

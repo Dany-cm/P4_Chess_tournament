@@ -42,6 +42,7 @@ class Round():
             match_controller.MatchController().ask_match_result(match)
 
     def get_player_score(self, player: Player):
+        ''' Get the player score'''
         for match in self.match_list:
             try:
                 return match.get_player_score(player)

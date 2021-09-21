@@ -7,6 +7,7 @@ class ReportView:
         pass
 
     def display(self, message):
+        ''' Helper function to display a message '''
         print(message)
 
     def display_players_name(self, players_to_display: list[Player]):

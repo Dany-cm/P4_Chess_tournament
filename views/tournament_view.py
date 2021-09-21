@@ -7,6 +7,7 @@ class TournamentView():
         print('Please type the ' + dataRequested)
 
     def display(self, message):
+        ''' Helper function to display a message '''
         print(message)
 
     def display_tournaments_name(self, tournaments_to_display: list[Tournament]):

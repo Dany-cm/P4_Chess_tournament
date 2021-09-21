@@ -69,10 +69,12 @@ class Player(object):
 
     @staticmethod
     def sort_player_by_alphabetical_order():
+        ''' Sort player by alphabetical order'''
         return sorted(Player.playerlist, key=lambda x: x.lastname)
 
     @staticmethod
     def sort_player_by_ranking_order():
+        ''' Sort player by ranking order'''
         return sorted(Player.playerlist, key=lambda x: x.rank)
 
     def validate_new_player(self, lastname: str, firstname: str, dob: str, sex: str, rank: int):

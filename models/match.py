@@ -35,6 +35,7 @@ class Match(object):
         return Match(player1, player2, serialized_match['match'][0][1], serialized_match['match'][1][1])
 
     def get_player_score(self, player: Player):
+        ''' Get player the score'''
         if player == self.match[0][0]:
             return self.match[0][1]
         elif player == self.match[1][0]:

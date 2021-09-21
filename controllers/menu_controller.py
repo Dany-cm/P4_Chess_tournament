@@ -32,7 +32,7 @@ class MenuController():
         self.main_menu()
 
     def tournament_menu(self):
-        ''' Main menu '''
+        ''' Tournament menu '''
         self.view.tournament_menu()
         choice = input()
 
@@ -50,7 +50,7 @@ class MenuController():
             self.tournament_menu()
 
     def player_menu(self):
-        ''' Main menu '''
+        ''' Player menu '''
         self.view.player_menu()
         choice = input()
 
@@ -64,7 +64,7 @@ class MenuController():
             self.player_menu()
 
     def report_menu(self):
-        ''' Main menu '''
+        ''' Report menu '''
         self.view.reports_menu()
         choice = input()
 
@@ -82,7 +82,7 @@ class MenuController():
             self.report_menu()
 
     def report_menu_second(self):
-        ''' Main menu '''
+        ''' Report second menu '''
         self.view.report_menu_second()
         choice = input()
 
@@ -94,7 +94,7 @@ class MenuController():
             self.report_menu()
 
     def report_menu_third(self):
-        ''' Main menu '''
+        ''' Report third menu '''
         self.view.report_menu_third()
         choice = input()
 
@@ -112,5 +112,6 @@ class MenuController():
         self.main_menu()
 
     def load_data(self):
+        ''' Load player & tournament data on startup'''
         Player.load_players()
         Tournament.load_tournaments()

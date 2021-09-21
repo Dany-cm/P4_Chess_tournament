@@ -88,9 +88,11 @@ class Tournament(object):
         self.player_list.sort(key=lambda player: (self.get_player_score(player), player.rank), reverse=True)
 
     def sort_player_from_tournament_by_alphabetical_order(self):
+        '''Sort player from tournament by alphabetical order '''
         return sorted(self.player_list, key=lambda player: player.lastname)
 
     def sort_player_from_tournament_by_rank_order(self):
+        ''' Sort player from tournament based on their rank order '''
         return sorted(self.player_list, key=lambda player: player.rank)
 
     def create_new_round(self):

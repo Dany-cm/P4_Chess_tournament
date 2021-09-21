@@ -29,7 +29,7 @@ class TournamentController():
             self.create_new_tournament()
 
     def add_players_to_tournament(self):
-        ''' Ask user to add players to the tournament.'''
+        ''' Ask user to add players to a valid tournament.'''
         tournaments_without_players = list(filter(lambda current_tournament: not current_tournament.player_list,
                                            Tournament.tournamentlist))
 
@@ -93,6 +93,7 @@ class TournamentController():
         Tournament.save_tournaments()
 
     def finish_in_progress_round(self):
+        ''' Finish the round in progress '''
         tournaments_in_progress = list(filter(lambda current_tournament: current_tournament.round_list
                                               and not current_tournament.is_tournament_finished,
                                               Tournament.tournamentlist))
