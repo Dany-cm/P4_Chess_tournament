@@ -1,4 +1,5 @@
 [flake8]
 max-line-length = 119
-
+format = html
+htmldir = flake_reports
 exclude= .gitignore, venv, README.md
