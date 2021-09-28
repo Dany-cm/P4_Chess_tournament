@@ -22,7 +22,7 @@ class TournamentController():
     def check_date(self, start_date):
         format = '%d/%m/%Y'
         try:
-            datetime.strptime(start_date, format)
+            datetime.datetime.strptime(start_date, format)
         except ValueError:
             return False
         return True

@@ -70,7 +70,7 @@ class Player(object):
     @staticmethod
     def sort_player_by_alphabetical_order():
         ''' Sort player by alphabetical order'''
-        return sorted(Player.playerlist, key=lambda x: x.lastname)
+        return sorted(Player.playerlist, key=lambda x: x.lastname.upper())
 
     @staticmethod
     def sort_player_by_ranking_order():

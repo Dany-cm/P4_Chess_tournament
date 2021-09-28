@@ -89,7 +89,7 @@ class Tournament(object):
 
     def sort_player_from_tournament_by_alphabetical_order(self):
         '''Sort player from tournament by alphabetical order '''
-        return sorted(self.player_list, key=lambda player: player.lastname)
+        return sorted(self.player_list, key=lambda player: player.lastname.upper())
 
     def sort_player_from_tournament_by_rank_order(self):
         ''' Sort player from tournament based on their rank order '''
@@ -98,7 +98,7 @@ class Tournament(object):
     def create_new_round(self):
         ''' Create a new round '''
         self.sorted_player_score()
-        round = Round(f'Round {len(self.round_list) +1}')
+        round = Round(f'Round {len(self.round_list) + 1}')
         length = len(self.player_list)
         middle_index = length // 2
         sup_half = self.player_list[:middle_index]
