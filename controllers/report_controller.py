@@ -70,10 +70,14 @@ class ReportController():
         ''' Get all rounds from a tournament '''
         self.view.display('List of all rounds from a tournament')
         tournament_to_display: Tournament = self.select_tournament()
+        if len(tournament_to_display.round_list) <= 0:
+            self.view.display('There is no round to display')
         self.view.display_tournament_rounds_name(tournament_to_display)
 
     def get_all_matchs_from_tournament(self):
         ''' Get all match from a tournament '''
         self.view.display('List of all matchs from a tournament')
         tournament_to_display: Tournament = self.select_tournament()
+        if len(tournament_to_display.round_list) <= 0:
+            self.view.display('There is no match to display')
         self.view.display_tournament_matchs_name(tournament_to_display)
