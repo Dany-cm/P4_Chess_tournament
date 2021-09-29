@@ -32,7 +32,7 @@ class PlayerController():
         return True
 
     def check_rank(self, rank):
-        if not int(rank) or int(rank) < 1:
+        if not rank.isdigit() or int(rank) < 1:
             return False
         return True
 
@@ -66,15 +66,17 @@ class PlayerController():
 
         self.view.display('List of players')
         self.view.display_players_name(Player.playerlist)
-        self.view.display('Select the player number to modify their rank')
+        self.view.display('Select the player number to modify their rank (must be a number greater than 0)')
 
         player_list_index = [i for i, x in enumerate(Player.playerlist)]
         selected_player = input()
 
         if not(selected_player.isdigit() and int(selected_player) >= 1):
             self.view.display('Only numbers are allowed and it must greater than 0')
+            self.modify_player_rank()
         elif not int(selected_player) <= len(player_list_index):
             self.view.display('Player does not exist')
+            self.modify_player_rank()
         else:
             player_to_modify: Player = Player.playerlist[int(selected_player) - 1]
             sanitized_input = input('Enter the new rank for the player ')
@@ -88,3 +90,4 @@ class PlayerController():
                     self.view.display('Number must be greater than 0')
             except ValueError:
                 self.view.display('Please only enter a number superior to 0')
+                self.modify_player_rank()

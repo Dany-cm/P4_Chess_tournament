@@ -38,7 +38,7 @@ class TournamentController():
         return True
 
     def check_number_of_round(self, number_of_round):
-        if not number_of_round or int(number_of_round) < 1:
+        if not number_of_round.isdigit() or int(number_of_round) < 1:
             return False
         return True
 
@@ -154,7 +154,8 @@ class TournamentController():
         correct = False
         while (not correct):
             selection = input()
-            correct = selection.isdigit() and int(selection) >= 1 and int(selection) <= len(Tournament.tournamentlist)
+            correct = selection.isdigit() and int(selection) >= 1 and int(selection) <= len(tournaments_in_progress)
+            self.view.display('Please select a valid tournament')
 
         tournament_to_resume: Tournament = tournaments_in_progress[int(selection) - 1]
         tournament_to_resume.round_list[len(tournament_to_resume.round_list) - 1].finish_round()
